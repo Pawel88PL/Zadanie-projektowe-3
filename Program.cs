@@ -4,7 +4,78 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            do
+            {
+                RunProgram();
+                Console.WriteLine();
+            }
+            while (EndProgram());
+        }
+
+
+        static void RunProgram()
+        {
+            // InsertionSort insertionSort = new InsertionSort();
+            // SelectionSort selectionSort = new SelectionSort();
+
+
+            Console.WriteLine("Przedmiot: Algorytmy i struktury danych" +
+                "\n Zadanie projektowe 3: \n Algorytmy sortowania.");
+
+            Console.WriteLine("\n===========================================\n");
+
+            Console.WriteLine("Jaki algorytm chcesz wybrać?" +
+                "\n 1. Sortowanie przez wstawianie (Insertion Sort)." +
+                "\n 2. Sortowanie przez wybieranie (Selection Sort)." +
+                "\n 3. Sortowanie bąbelkowe (Bubble Sort)." +
+                "\n 4. Sortowanie koktajlowe (Shaker Sort)." +
+                "\n 5. Sortowanie szybkie (Quick Sort).");
+            Console.WriteLine();
+
+            int n = int.Parse(Console.ReadLine());
+
+            switch (n)
+            {
+                case 1:
+                    Console.WriteLine();
+                    // insertionSort.PrintTabBeforeSort();
+                    // insertionSort.PrintTabAfterSort();
+                    Console.WriteLine();
+                    break;
+                case 2:
+                    Console.WriteLine();
+                    // selectionSort.PrintTabBeforeSort();
+                    // selectionSort.PrintTabAfterSort();
+                    Console.WriteLine();
+                    break;
+                case 3:
+                    // sito.CheckIsPrimeNumber();
+                    break;
+                case 4:
+                    // bonus.CheckIsPrimeNumber();
+                    break;
+            }
+            Console.WriteLine();
+        }
+
+
+        static bool EndProgram()
+        {
+            string end;
+            Console.WriteLine("Czy chcesz zakończyć program? \n" +
+                "Tak - naciśnij Enter. \n" +
+                "Nie - wpisz słowo 'nie'.");
+            end = Console.ReadLine();
+            Console.WriteLine();
+
+            if (end == "nie")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
