@@ -15,7 +15,7 @@
 
         static void RunProgram()
         {
-            // InsertionSort insertionSort = new InsertionSort();
+            InsertionSort insertionSort = new InsertionSort();
             // SelectionSort selectionSort = new SelectionSort();
 
 
@@ -38,8 +38,8 @@
             {
                 case 1:
                     Console.WriteLine();
-                    // insertionSort.PrintTabBeforeSort();
-                    // insertionSort.PrintTabAfterSort();
+                    insertionSort.PrintTabBeforeSort();
+                    insertionSort.PrintTabAfterSort();
                     Console.WriteLine();
                     break;
                 case 2:
