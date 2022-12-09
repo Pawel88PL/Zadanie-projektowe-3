@@ -1,26 +1,33 @@
 ﻿using System;
 using System.Diagnostics;
 
-public class InsertionSort
+public class SelectionSort
 {
-    public int equalOperationCounter = 0;
+    private static int equalOperationCounter;
 
-    public void InsertionSortAlgorithm(int[] tab)
+    public void SelectionSortAlgorithm(int[] tab)
     {
-        for (int i = 1; i < tab.Length; i++)
+        for (int i = 0; i < tab.Length; i++)
         {
-            int j = i;
-            int temp = tab[j];
-            while ((j > 0) && (tab[j - 1]) > temp)
+            int smallest = i;
+            for (int j = i + 1; j < tab.Length; j++)
             {
+
                 equalOperationCounter++;
-                tab[j] = tab[j - 1];
-                j--;
+
+                if (tab[j] < tab[smallest])
+                {
+                    smallest = j;
+
+                }
             }
-            tab[j] = temp;
+            int temp = tab[smallest];
+            tab[smallest] = tab[i];
+            tab[i] = temp;
         }
 
     }
+
 
     public void PrintTabBeforeSort()
     {
@@ -41,7 +48,7 @@ public class InsertionSort
         Table table = new Table();
         int[] tab = table.TableRandom();
 
-        InsertionSortAlgorithm(tab);
+        SelectionSortAlgorithm(tab);
 
         Console.WriteLine("Sortowanie przez wybieranie: ");
         Console.WriteLine("Tablica posortowana: \n");
@@ -62,7 +69,7 @@ public class InsertionSort
             long startingTime = Stopwatch.GetTimestamp();
 
             // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            InsertionSortAlgorithm(tab);
+            SelectionSortAlgorithm(tab);
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -80,7 +87,7 @@ public class InsertionSort
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie przez wybieranie:" +
+        Console.WriteLine("Sortowanie przez wstawianie:" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 

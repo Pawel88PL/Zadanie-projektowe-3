@@ -1,14 +1,14 @@
 ﻿using System;
 
-public class Table50k
+public class Table
 {
     public int[] TableRandom()
     {
-        int[] table = new int[5000];
+        int[] table = new int[500];
         Random rnd = new Random();
         for (int i = 0; i < table.Length; i++)
         {
-            table[i] = rnd.Next(1, 5000);
+            table[i] = rnd.Next(1, 500);
         }
         return table;
     }
@@ -17,7 +17,7 @@ public class Table50k
 
     public int[] TableIncrease()
     {
-        int[] table = new int[50000];
+        int[] table = new int[500];
         for (int i = 0; i < table.Length; i++)
         {
             table[i] = i;
@@ -28,8 +28,8 @@ public class Table50k
 
     public int[] TableDecrease()
     {
-        int[] table = new int[50000];
-        for (int i = 50000; i > 1; i--)
+        int[] table = new int[500];
+        for (int i = 500; i > 1; i--)
         {
             table[i] = i;
         }

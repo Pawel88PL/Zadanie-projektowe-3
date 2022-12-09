@@ -15,8 +15,8 @@
 
         static void RunProgram()
         {
+            SelectionSort selectionSort = new SelectionSort();
             InsertionSort insertionSort = new InsertionSort();
-            // SelectionSort selectionSort = new SelectionSort();
 
 
             Console.WriteLine("Przedmiot: Algorytmy i struktury danych" +
@@ -25,8 +25,8 @@
             Console.WriteLine("\n===========================================\n");
 
             Console.WriteLine("Jaki algorytm chcesz wybrać?" +
-                "\n 1. Sortowanie przez wstawianie (Insertion Sort)." +
-                "\n 2. Sortowanie przez wybieranie (Selection Sort)." +
+                "\n 1. Sortowanie przez wybieranie (Selection Sort)." +
+                "\n 2. Sortowanie przez wstawianie (Insertion Sort)." +
                 "\n 3. Sortowanie bąbelkowe (Bubble Sort)." +
                 "\n 4. Sortowanie koktajlowe (Shaker Sort)." +
                 "\n 5. Sortowanie szybkie (Quick Sort).");
@@ -38,14 +38,14 @@
             {
                 case 1:
                     Console.WriteLine();
-                    insertionSort.PrintTabBeforeSort();
-                    insertionSort.PrintTabAfterSort();
+                    selectionSort.PrintTabBeforeSort();
+                    selectionSort.PrintTabAfterSort();
                     Console.WriteLine();
                     break;
                 case 2:
                     Console.WriteLine();
-                    // selectionSort.PrintTabBeforeSort();
-                    // selectionSort.PrintTabAfterSort();
+                    insertionSort.PrintTabBeforeSort();
+                    insertionSort.PrintTabAfterSort();
                     Console.WriteLine();
                     break;
                 case 3:
