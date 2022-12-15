@@ -32,26 +32,27 @@
                 "\n 5. Sortowanie szybkie (Quick Sort).");
             Console.WriteLine();
 
-            int n = int.Parse(Console.ReadLine());
+            string? n = Console.ReadLine();
 
             switch (n)
             {
-                case 1:
+                case "1":
                     Console.WriteLine();
-                    selectionSort.PrintTabBeforeSort();
-                    selectionSort.PrintTabAfterSort();
+                    selectionSort.SortRandomTable();
+                    selectionSort.SortDecreaseTable();
+                    selectionSort.PrintTable();
+                    break;
+                case "2":
+                    Console.WriteLine();
+                    insertionSort.SortRandomTable();
+                    Console.WriteLine("\n===========================================\n");
+                    insertionSort.SortDecreaseTable();
                     Console.WriteLine();
                     break;
-                case 2:
-                    Console.WriteLine();
-                    insertionSort.PrintTabBeforeSort();
-                    insertionSort.PrintTabAfterSort();
-                    Console.WriteLine();
-                    break;
-                case 3:
+                case "3":
                     // sito.CheckIsPrimeNumber();
                     break;
-                case 4:
+                case "4":
                     // bonus.CheckIsPrimeNumber();
                     break;
             }
@@ -61,7 +62,7 @@
 
         static bool EndProgram()
         {
-            string end;
+            string? end;
             Console.WriteLine("Czy chcesz zakończyć program? \n" +
                 "Tak - naciśnij Enter. \n" +
                 "Nie - wpisz słowo 'nie'.");
