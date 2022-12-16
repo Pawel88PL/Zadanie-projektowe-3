@@ -1,33 +1,59 @@
 ﻿using System;
 using System.Diagnostics;
 
-public class SelectionSort
+public class HeapSort
 {
     private static int equalOperationCounter;
 
-    private void SelectionSortAlgorithm(int[] tab)
+    private void Heapify(int[] tab, uint left, uint right)
     {
-        for (int i = 0; i < tab.Length; i++)
+        uint i = left;
+        uint j = 2 * i + 1;
+        int buf = tab[i];
+        while(j <= right)
         {
-            int smallest = i;
-            for (int j = i + 1; j < tab.Length; j++)
+            if (j < right)
             {
-                equalOperationCounter++;
-                if (tab[j] < tab[smallest])
+                if (tab[j] < tab[j + 1])
                 {
-                    smallest = j;
-
+                    j++;
                 }
             }
-            int temp = tab[smallest];
-            tab[smallest] = tab[i];
-            tab[i] = temp;
+            if (buf >= tab[j])
+            {
+                break;
+            }
+            tab[i] = tab[j];
+            i = j;
+            j = 2 * i + 1;
+        }
+        tab[i] = buf;
+    }
+
+
+
+    private void HeapSortAlgorithm(int[] tab)
+    {
+        uint left = ((uint)tab.Length / 2);
+        uint right = (uint)tab.Length - 1;
+        while (left > 0)
+        {
+            left--;
+            Heapify(tab, left, right);
+        }
+        while (right > 0)
+        {
+            int buf = tab[left];
+            tab[left] = tab[right];
+            tab[right] = buf;
+            right--;
+            Heapify(tab, left, right);
         }
 
     }
 
 
-    
+
     public void SortRandomTable()
     {
         Table table = new Table();
@@ -43,7 +69,7 @@ public class SelectionSort
             long startingTime = Stopwatch.GetTimestamp();
 
             // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            SelectionSortAlgorithm(tab);
+            HeapSortAlgorithm(tab);
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -61,7 +87,7 @@ public class SelectionSort
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie tablicy liczb losowych algorytmem przez wybieranie:" +
+        Console.WriteLine("Sortowanie tablicy liczb losowych algorytmem stogowym (heap sort):" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 
@@ -87,7 +113,7 @@ public class SelectionSort
             long startingTime = Stopwatch.GetTimestamp();
 
             // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            SelectionSortAlgorithm(tab);
+            HeapSortAlgorithm(tab);
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -104,7 +130,7 @@ public class SelectionSort
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie tablicy liczb od najmniejszej do największej algorytmem przez wybieranie:" +
+        Console.WriteLine("Sortowanie tablicy liczb od najmniejszej do największej algorytmem stogowym (heap sort):" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 
@@ -118,7 +144,7 @@ public class SelectionSort
     public void SortDecreaseTable()
     {
         Table table = new Table();
-        int[] tab = table.TableDecrease();        
+        int[] tab = table.TableDecrease();
 
         equalOperationCounter = 0;
         uint iterationsNumber = 10;
@@ -130,7 +156,7 @@ public class SelectionSort
             long startingTime = Stopwatch.GetTimestamp();
 
             // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            SelectionSortAlgorithm(tab);
+            HeapSortAlgorithm(tab);
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -147,7 +173,7 @@ public class SelectionSort
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie tablicy liczb od największej do najmniejszej algorytmem przez wybieranie:" +
+        Console.WriteLine("Sortowanie tablicy liczb od największej do najmniejszej algorytmem stogowym (heap sort):" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 
@@ -165,7 +191,7 @@ public class SelectionSort
         if (choice == "t")
         {
             Table table = new Table();
-            
+
             // Deklarujemy tablicę liczb losowych
             int[] tabR = table.TableRandom();
 
@@ -185,11 +211,11 @@ public class SelectionSort
                 Console.Write("{0}, ", tabD[i]);
             }
             Console.WriteLine("\n ======================================== \n");
-            
+
             // Sortujemy tablicę liczb losowych.
-            SelectionSortAlgorithm(tabR);
-            
-            Console.WriteLine("Sortowanie przez wybieranie: " +
+            HeapSortAlgorithm(tabR);
+
+            Console.WriteLine("Sortowanie algorytmem stogowym (heap sort): " +
                 "\n Posortowana tablica liczb losowych: \n");
             for (int i = 0; i < tabR.Length; i++)
             {
@@ -199,9 +225,9 @@ public class SelectionSort
 
 
             // Sortujemy tablicę liczb od największej do najmniejszej.
-            SelectionSortAlgorithm(tabD);
+            HeapSortAlgorithm(tabD);
 
-            Console.WriteLine("Sortowanie przez wybieranie: " +
+            Console.WriteLine("Sortowanie algorytmem stogowym (heap sort): " +
                 "\n Posortowana tablica liczb od największej do najmniejszej: \n");
             for (int i = 0; i < tabD.Length; i++)
             {

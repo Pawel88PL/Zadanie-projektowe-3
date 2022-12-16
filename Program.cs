@@ -17,6 +17,7 @@
         {
             SelectionSort selectionSort = new SelectionSort();
             InsertionSort insertionSort = new InsertionSort();
+            HeapSort heapSort = new HeapSort();
 
 
             Console.WriteLine("Przedmiot: Algorytmy i struktury danych" +
@@ -27,8 +28,8 @@
             Console.WriteLine("Jaki algorytm chcesz wybrać?" +
                 "\n 1. Sortowanie przez wybieranie (Selection Sort)." +
                 "\n 2. Sortowanie przez wstawianie (Insertion Sort)." +
-                "\n 3. Sortowanie bąbelkowe (Bubble Sort)." +
-                "\n 4. Sortowanie koktajlowe (Shaker Sort)." +
+                "\n 3. Sortowanie stogowe (Heap Sort)." +
+                "\n 4. Sortowanie koktajlowe (Coctail Sort)." +
                 "\n 5. Sortowanie szybkie (Quick Sort).");
             Console.WriteLine();
 
@@ -39,21 +40,26 @@
                 case "1":
                     Console.WriteLine();
                     selectionSort.SortRandomTable();
+                    selectionSort.SortIncreaseTable();
                     selectionSort.SortDecreaseTable();
                     selectionSort.PrintTable();
                     break;
                 case "2":
                     Console.WriteLine();
                     insertionSort.SortRandomTable();
-                    Console.WriteLine("\n===========================================\n");
+                    insertionSort.SortIncreaseTable();
                     insertionSort.SortDecreaseTable();
-                    Console.WriteLine();
+                    insertionSort.PrintTable();
                     break;
                 case "3":
-                    // sito.CheckIsPrimeNumber();
+                    Console.WriteLine();
+                    heapSort.SortRandomTable();
+                    heapSort.SortIncreaseTable();
+                    heapSort.SortDecreaseTable();
+                    heapSort.PrintTable();
                     break;
                 case "4":
-                    // bonus.CheckIsPrimeNumber();
+                    
                     break;
             }
             Console.WriteLine();
