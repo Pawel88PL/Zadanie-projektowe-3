@@ -1,56 +1,41 @@
 ﻿using System;
 using System.Diagnostics;
 
-public class HeapSort
+public class CocktailSort
 {
     private static int equalOperationCounter;
 
-    private void Heapify(int[] tab, uint left, uint right)
+    private void CocktailSortAlgorithm(int[] tab)
     {
-        equalOperationCounter++;
-        uint i = left;
-        uint j = 2 * i + 1;
-        int buf = tab[i];
-        while(j <= right)
+        int Left = 1, Right = tab.Length - 1, k = tab.Length - 1;
+        do
         {
-            if (j < right)
+            for (int j = Right; j >= Left; j--)
             {
-                if (tab[j] < tab[j + 1])
+                if (tab[j - 1] > tab[j])
                 {
-                    j++;
+                    equalOperationCounter++;
+                    int Buf = tab[j - 1];
+                    tab[j - 1] = tab[j];
+                    tab[j] = Buf;
+                    k = j;
                 }
             }
-            if (buf >= tab[j])
+            Left = k + 1;
+            for (int j = Left; j <= Right; j++)
             {
-                break;
+                if (tab[j - 1] > tab[j])
+                {
+                    equalOperationCounter++;
+                    int Buf = tab[j - 1];
+                    tab[j - 1] = tab[j];
+                    tab[j] = Buf;
+                    k = j;
+                }
             }
-            tab[i] = tab[j];
-            i = j;
-            j = 2 * i + 1;
+            Right = k - 1;
         }
-        tab[i] = buf;
-    }
-
-
-
-    private void HeapSortAlgorithm(int[] tab)
-    {
-        uint left = ((uint)tab.Length / 2);
-        uint right = (uint)tab.Length - 1;
-        while (left > 0)
-        {
-            left--;
-            Heapify(tab, left, right);
-        }
-        while (right > 0)
-        {
-            int buf = tab[left];
-            tab[left] = tab[right];
-            tab[right] = buf;
-            right--;
-            Heapify(tab, left, right);
-        }
-
+        while (Left <= Right);
     }
 
 
@@ -70,7 +55,7 @@ public class HeapSort
             long startingTime = Stopwatch.GetTimestamp();
 
             // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            HeapSortAlgorithm(tab);
+            CocktailSortAlgorithm(tab);
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -88,7 +73,7 @@ public class HeapSort
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie tablicy liczb losowych algorytmem stogowym (heap sort):" +
+        Console.WriteLine("Sortowanie tablicy liczb losowych algorytmem mieszanym, tzw. koktajlowym:" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 
@@ -114,7 +99,7 @@ public class HeapSort
             long startingTime = Stopwatch.GetTimestamp();
 
             // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            HeapSortAlgorithm(tab);
+            CocktailSortAlgorithm(tab);
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -131,7 +116,7 @@ public class HeapSort
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie tablicy liczb od najmniejszej do największej algorytmem stogowym (heap sort):" +
+        Console.WriteLine("Sortowanie tablicy liczb od najmniejszej do największej algorytmem mieszanym, tzw. koktajlowym:" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 
@@ -157,7 +142,7 @@ public class HeapSort
             long startingTime = Stopwatch.GetTimestamp();
 
             // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            HeapSortAlgorithm(tab);
+            CocktailSortAlgorithm(tab);
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -174,7 +159,7 @@ public class HeapSort
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie tablicy liczb od największej do najmniejszej algorytmem stogowym (heap sort):" +
+        Console.WriteLine("Sortowanie tablicy liczb od największej do najmniejszej algorytmem mieszanym, tzw. koktajlowym:" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 
@@ -214,9 +199,9 @@ public class HeapSort
             Console.WriteLine("\n ======================================== \n");
 
             // Sortujemy tablicę liczb losowych.
-            HeapSortAlgorithm(tabR);
+            CocktailSortAlgorithm(tabR);
 
-            Console.WriteLine("Sortowanie algorytmem stogowym (heap sort): " +
+            Console.WriteLine("Sortowanie mieszane, tzw. koktajlowe: " +
                 "\n Posortowana tablica liczb losowych: \n");
             for (int i = 0; i < tabR.Length; i++)
             {
@@ -226,9 +211,9 @@ public class HeapSort
 
 
             // Sortujemy tablicę liczb od największej do najmniejszej.
-            HeapSortAlgorithm(tabD);
+            CocktailSortAlgorithm(tabD);
 
-            Console.WriteLine("Sortowanie algorytmem stogowym (heap sort): " +
+            Console.WriteLine("Sortowanie mieszane, tzw. koktajlowe: " +
                 "\n Posortowana tablica liczb od największej do najmniejszej: \n");
             for (int i = 0; i < tabD.Length; i++)
             {

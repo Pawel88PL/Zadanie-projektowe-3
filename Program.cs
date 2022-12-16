@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             do
             {
@@ -13,11 +13,13 @@
         }
 
 
-        static void RunProgram()
+        private static void RunProgram()
         {
             SelectionSort selectionSort = new SelectionSort();
             InsertionSort insertionSort = new InsertionSort();
             HeapSort heapSort = new HeapSort();
+            CocktailSort cocktailSort = new CocktailSort();
+            Quicksort quicksort = new Quicksort();
 
 
             Console.WriteLine("Przedmiot: Algorytmy i struktury danych" +
@@ -30,7 +32,7 @@
                 "\n 2. Sortowanie przez wstawianie (Insertion Sort)." +
                 "\n 3. Sortowanie stogowe (Heap Sort)." +
                 "\n 4. Sortowanie koktajlowe (Coctail Sort)." +
-                "\n 5. Sortowanie szybkie (Quick Sort).");
+                "\n 5. Sortowanie szybkie iteracyjne i rekurencyjne (Quick Sort).");
             Console.WriteLine();
 
             string? n = Console.ReadLine();
@@ -59,14 +61,25 @@
                     heapSort.PrintTable();
                     break;
                 case "4":
-                    
+                    Console.WriteLine();
+                    cocktailSort.SortRandomTable();
+                    cocktailSort.SortIncreaseTable();
+                    cocktailSort.SortDecreaseTable();
+                    cocktailSort.PrintTable();
+                    break;
+                case "5":
+                    Console.WriteLine();
+                    quicksort.SortRandomTable();
+                    quicksort.SortIncreaseTable();
+                    quicksort.SortDecreaseTable();
+                    quicksort.PrintTable();
                     break;
             }
             Console.WriteLine();
         }
 
 
-        static bool EndProgram()
+        private static bool EndProgram()
         {
             string? end;
             Console.WriteLine("Czy chcesz zakończyć program? \n" +

@@ -1,56 +1,46 @@
 ﻿using System;
 using System.Diagnostics;
 
-public class HeapSort
+public class Quicksort
 {
     private static int equalOperationCounter;
 
-    private void Heapify(int[] tab, uint left, uint right)
+    private void QsortIteration(int[] tab)
     {
-        equalOperationCounter++;
-        uint i = left;
-        uint j = 2 * i + 1;
-        int buf = tab[i];
-        while(j <= right)
+        int i, j, l, p, sp;
+        int[] stos_l = new int[tab.Length];
+        int[] stos_p = new int[tab.Length];
+        sp = 0; stos_l[sp] = 0; stos_p[sp] = tab.Length - 1;
+        do
         {
-            if (j < right)
+            l = stos_l[sp]; p = stos_p[sp]; sp--;
+            do
             {
-                if (tab[j] < tab[j + 1])
+                int x;
+                i = l; j = p; x = tab[(l + p) / 2];
+                do
                 {
-                    j++;
+                    while (tab[i] < x)
+                    {
+                        i++;
+                    }
+                    while (x < tab[j])
+                    {
+                        j--;
+                    }
+                    if (i <= j)
+                    {
+                        int buf = tab[i]; tab[i] = tab[j]; tab[j] = buf;
+                        i++; j--;
+                    }
+                } while (i <= j);
+                if (i < p)
+                {
+                    sp++; stos_l[sp] = i; stos_p[sp] = p;
                 }
-            }
-            if (buf >= tab[j])
-            {
-                break;
-            }
-            tab[i] = tab[j];
-            i = j;
-            j = 2 * i + 1;
-        }
-        tab[i] = buf;
-    }
-
-
-
-    private void HeapSortAlgorithm(int[] tab)
-    {
-        uint left = ((uint)tab.Length / 2);
-        uint right = (uint)tab.Length - 1;
-        while (left > 0)
-        {
-            left--;
-            Heapify(tab, left, right);
-        }
-        while (right > 0)
-        {
-            int buf = tab[left];
-            tab[left] = tab[right];
-            tab[right] = buf;
-            right--;
-            Heapify(tab, left, right);
-        }
-
+                p = j;
+            } while (l < p);
+        } while (sp >= 0);
     }
 
 
@@ -70,7 +60,7 @@ public class HeapSort
             long startingTime = Stopwatch.GetTimestamp();
 
             // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            HeapSortAlgorithm(tab);
+            QsortIteration(tab);
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -88,7 +78,7 @@ public class HeapSort
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie tablicy liczb losowych algorytmem stogowym (heap sort):" +
+        Console.WriteLine("Sortowanie tablicy liczb losowych iteracyjnym algorytmem Quick Sort:" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 
@@ -114,7 +104,7 @@ public class HeapSort
             long startingTime = Stopwatch.GetTimestamp();
 
             // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            HeapSortAlgorithm(tab);
+            QsortIteration(tab);
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -131,7 +121,7 @@ public class HeapSort
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie tablicy liczb od najmniejszej do największej algorytmem stogowym (heap sort):" +
+        Console.WriteLine("Sortowanie tablicy liczb od najmniejszej do największej algorytmem Quick Sort:" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 
@@ -157,7 +147,7 @@ public class HeapSort
             long startingTime = Stopwatch.GetTimestamp();
 
             // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            HeapSortAlgorithm(tab);
+            QsortIteration(tab);
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -174,7 +164,7 @@ public class HeapSort
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie tablicy liczb od największej do najmniejszej algorytmem stogowym (heap sort):" +
+        Console.WriteLine("Sortowanie tablicy liczb od największej do najmniejszej algorytmem Quick Sort:" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 
@@ -214,9 +204,9 @@ public class HeapSort
             Console.WriteLine("\n ======================================== \n");
 
             // Sortujemy tablicę liczb losowych.
-            HeapSortAlgorithm(tabR);
+            QsortIteration(tabR);
 
-            Console.WriteLine("Sortowanie algorytmem stogowym (heap sort): " +
+            Console.WriteLine("Sortowanie algorytmem Quick Sort: " +
                 "\n Posortowana tablica liczb losowych: \n");
             for (int i = 0; i < tabR.Length; i++)
             {
@@ -226,9 +216,9 @@ public class HeapSort
 
 
             // Sortujemy tablicę liczb od największej do najmniejszej.
-            HeapSortAlgorithm(tabD);
+            QsortIteration(tabD);
 
-            Console.WriteLine("Sortowanie algorytmem stogowym (heap sort): " +
+            Console.WriteLine("Sortowanie algorytmem Quick Sort: " +
                 "\n Posortowana tablica liczb od największej do najmniejszej: \n");
             for (int i = 0; i < tabD.Length; i++)
             {

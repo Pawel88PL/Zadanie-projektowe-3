@@ -26,6 +26,7 @@ public class Table
     }
 
 
+
     public int[] TableDecrease()
     {
         int n = 50000;
