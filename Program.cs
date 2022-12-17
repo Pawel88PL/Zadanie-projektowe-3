@@ -69,9 +69,8 @@
                     break;
                 case "5":
                     Console.WriteLine();
-                    quicksort.SortRandomTable();
-                    quicksort.SortIncreaseTable();
-                    quicksort.SortDecreaseTable();
+                    quicksort.SortRandomTableIteration();
+                    quicksort.SortRandomTableRecursion();
                     quicksort.PrintTable();
                     break;
             }

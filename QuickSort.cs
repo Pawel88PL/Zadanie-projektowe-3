@@ -5,7 +5,7 @@ public class Quicksort
 {
     private static int equalOperationCounter;
 
-    private void QsortIteration(int[] tab)
+    private void QsortIteration(int[] tab) // <-- Iteracyjny algorytm Quick Sort.
     {
         int i, j, l, p, sp;
         int[] stos_l = new int[tab.Length];
@@ -16,8 +16,7 @@ public class Quicksort
             l = stos_l[sp]; p = stos_p[sp]; sp--;
             do
             {
-                int x;
-                i = l; j = p; x = tab[(l + p) / 2];
+                int x; i = l; j = p; x = tab[(l + p) / 2];
                 do
                 {
                     while (tab[i] < x)
@@ -30,6 +29,7 @@ public class Quicksort
                     }
                     if (i <= j)
                     {
+                        equalOperationCounter++;
                         int buf = tab[i]; tab[i] = tab[j]; tab[j] = buf;
                         i++; j--;
                     }
@@ -45,7 +45,7 @@ public class Quicksort
 
 
 
-    public void SortRandomTable()
+    public void SortRandomTableIteration()
     {
         Table table = new Table();
         int[] tab = table.TableRandom();
@@ -59,8 +59,7 @@ public class Quicksort
         {
             long startingTime = Stopwatch.GetTimestamp();
 
-            // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            QsortIteration(tab);
+            QsortIteration(tab); // <-- Wywołanie iteracyjnego algorytmu Quick Sort.
 
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
@@ -89,10 +88,50 @@ public class Quicksort
 
 
 
-    public void SortIncreaseTable()
+
+    private void QsortRecursion(int[] tab, int l, int p)
+    {
+        int i, j, x;
+        i = l;
+        j = p;
+        x = tab[(l + p) / 2];
+        do
+        {
+            while (tab[i] < x)
+            {
+                i++;
+            }
+            while (x < tab[j])
+            {
+                j--;
+            }
+            if (i <= j)
+            {
+                equalOperationCounter++;
+                int buf = tab[i];
+                tab[i] = tab[j];
+                tab[j] = buf;
+                i++; j--;
+            }
+        }
+        while (i <= j);
+        if (l < j)
+        {
+            QsortRecursion(tab, l, j);
+        }
+        if (i < p)
+        {
+            QsortRecursion(tab, i, p);
+        }
+    }
+
+
+
+
+    public void SortRandomTableRecursion()
     {
         Table table = new Table();
-        int[] tab = table.TableIncrease();
+        int[] tab = table.TableRandom();
 
         equalOperationCounter = 0;
         uint iterationsNumber = 10;
@@ -102,10 +141,9 @@ public class Quicksort
         for (int n = 0; n < (iterationsNumber + 1 + 1); ++n)
         {
             long startingTime = Stopwatch.GetTimestamp();
-
-            // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            QsortIteration(tab);
-
+            
+            QsortRecursion(tab, 0, tab.Length - 1); // <-- Wywoładnie rekurencyjnego algorytmu Quick Sort.
+            
             long endingTime = Stopwatch.GetTimestamp();
             long iterationElapsedTime = endingTime - startingTime;
             elapsedTime += iterationElapsedTime;
@@ -118,10 +156,11 @@ public class Quicksort
                 maxTime = iterationElapsedTime;
             }
         }
+
         elapsedTime -= (minTime + maxTime);
         double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
 
-        Console.WriteLine("Sortowanie tablicy liczb od najmniejszej do największej algorytmem Quick Sort:" +
+        Console.WriteLine("Sortowanie tablicy liczb losowych rekurencyjnym algorytmem Quick Sort:" +
             "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
             "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
 
@@ -130,47 +169,6 @@ public class Quicksort
     }
 
 
-
-
-    public void SortDecreaseTable()
-    {
-        Table table = new Table();
-        int[] tab = table.TableDecrease();
-
-        equalOperationCounter = 0;
-        uint iterationsNumber = 10;
-        long elapsedTime = 0;
-        long minTime = long.MaxValue;
-        long maxTime = long.MinValue;
-        for (int n = 0; n < (iterationsNumber + 1 + 1); ++n)
-        {
-            long startingTime = Stopwatch.GetTimestamp();
-
-            // Poniżej wywołujemy metodę sortowania, która jest w pętli 10 - ciu powtórzeń.
-            QsortIteration(tab);
-
-            long endingTime = Stopwatch.GetTimestamp();
-            long iterationElapsedTime = endingTime - startingTime;
-            elapsedTime += iterationElapsedTime;
-            if (iterationElapsedTime < minTime)
-            {
-                minTime = iterationElapsedTime;
-            }
-            if (iterationElapsedTime > maxTime)
-            {
-                maxTime = iterationElapsedTime;
-            }
-        }
-        elapsedTime -= (minTime + maxTime);
-        double elapsedSeconds = elapsedTime * (1.0 / (iterationsNumber * Stopwatch.Frequency));
-
-        Console.WriteLine("Sortowanie tablicy liczb od największej do najmniejszej algorytmem Quick Sort:" +
-            "\n Liczba operacji sortowania: {0}. Średni czas przebiegu operacji: {1} [s]," +
-            "\n zakładając odrzucenie czasów skrajnych.", equalOperationCounter, elapsedSeconds.ToString("F8"));
-
-        Console.WriteLine();
-        Console.WriteLine("\n===========================================\n");
-    }
 
 
 
@@ -183,8 +181,7 @@ public class Quicksort
         {
             Table table = new Table();
 
-            // Deklarujemy tablicę liczb losowych
-            int[] tabR = table.TableRandom();
+            int[] tabR = table.TableRandom(); // <-- Deklarujemy tablicę liczb losowych.
 
             Console.WriteLine("Tablica liczb losowych: \n");
             for (int i = 0; i < tabR.Length; i++)
@@ -193,20 +190,11 @@ public class Quicksort
             }
             Console.WriteLine("\n ======================================== \n");
 
-            // Deklarujemy tablicę liczb od największej do najmniejszej
-            int[] tabD = table.TableDecrease();
 
-            Console.WriteLine("Tablica liczb od największej do najmniejszej: \n");
-            for (int i = 0; i < tabD.Length; i++)
-            {
-                Console.Write("{0}, ", tabD[i]);
-            }
-            Console.WriteLine("\n ======================================== \n");
+            
+            QsortRecursion(tabR, 0, tabR.Length - 1); // <-- Wywoładnie rekurencyjnego algorytmu Quick Sort.
 
-            // Sortujemy tablicę liczb losowych.
-            QsortIteration(tabR);
-
-            Console.WriteLine("Sortowanie algorytmem Quick Sort: " +
+            Console.WriteLine("Sortowanie rekurencyjnym algorytmem Quick Sort: " +
                 "\n Posortowana tablica liczb losowych: \n");
             for (int i = 0; i < tabR.Length; i++)
             {
@@ -215,16 +203,27 @@ public class Quicksort
             Console.WriteLine("\n ======================================== \n");
 
 
-            // Sortujemy tablicę liczb od największej do najmniejszej.
-            QsortIteration(tabD);
 
-            Console.WriteLine("Sortowanie algorytmem Quick Sort: " +
-                "\n Posortowana tablica liczb od największej do najmniejszej: \n");
-            for (int i = 0; i < tabD.Length; i++)
+            
+            tabR = table.TableRandom(); // <-- Ponowne zadeklarowanie tablicy liczb losowych.
+
+            Console.WriteLine("Tablica liczb losowych: \n");
+            for (int i = 0; i < tabR.Length; i++)
             {
-                Console.Write("{0}, ", tabD[i]);
+                Console.Write("{0}, ", tabR[i]);
             }
-            Console.WriteLine();
+            Console.WriteLine("\n ======================================== \n");
+
+
+            
+            QsortIteration(tabR); // <-- Wywołanie iteracyjnego algorytmu Quick Sort.
+
+            Console.WriteLine("Sortowanie iteracyjnym algorytmem Quick Sort: " +
+                "\n Posortowana tablica liczb losowych: \n");
+            for (int i = 0; i < tabR.Length; i++)
+            {
+                Console.Write("{0}, ", tabR[i]);
+            }
             Console.WriteLine("\n ======================================== \n");
         }
     }

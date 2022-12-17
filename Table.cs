@@ -8,7 +8,7 @@ public class Table
         Random rnd = new Random();
         for (int i = 0; i < table.Length; i++)
         {
-            table[i] = rnd.Next(1, 50000);
+            table[i] = rnd.Next(1, 50001);
         }
         return table;
     }
