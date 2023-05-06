@@ -1,5 +1,7 @@
-# Zadanie projektowe 3
+# Zadanie na zalicznie
 
-Studia WSB Poznań, kier: Informatyka, rok I, semestr II.
+Studia WSB Poznań, kier: Informatyka, rok II, semestr III.
 
-Przedmiot: Algorytmy i struktury danych.
+Przedmiot: Programowanie obiektowe
+
+Autor: Barbara Sławińska

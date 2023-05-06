@@ -4,7 +4,7 @@ public class Table
 {
     public int[] TableRandom()
     {
-        int[] table = new int[50000];
+        int[] table = new int[500];
         Random rnd = new Random();
         for (int i = 0; i < table.Length; i++)
         {
@@ -17,7 +17,7 @@ public class Table
 
     public int[] TableIncrease()
     {
-        int[] table = new int[50000];
+        int[] table = new int[500];
         for (int i = 0; i < table.Length; i++)
         {
             table[i] = i;
@@ -29,7 +29,7 @@ public class Table
 
     public int[] TableDecrease()
     {
-        int n = 50000;
+        int n = 500;
         int[] table = new int[n];
         for (int i = 0; i < table.Length; i++)
         {
