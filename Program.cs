@@ -22,8 +22,22 @@
             Quicksort quicksort = new Quicksort();
 
 
-            Console.WriteLine("Przedmiot: Algorytmy i struktury danych" +
-                "\n Zadanie projektowe 3: \n Algorytmy sortowania.");
+            Console.WriteLine("Przedmiot: Programowanie obiektowe" +
+                "\n " +
+                "\n Zadanie na zaliczenie: " +
+                "\n Testowanie algorytmów sortowania:" +
+                "\n " +
+                "\n\t Autor: Barbara Sławińska " +
+                "\n " +
+                "\n Testujemy 3 tabele zawierające 500 liczb:" +
+                "\n " +
+                "\n\t 1. pierwsza tabela jest tabelą liczb losowych" +
+                "\n\t 2. druga tabela jest tabelą liczb od najmniejszych do największych" +
+                "\n\t 3. trzecia tabela jest tabelą liczb od największych do najmniejszych." +
+                "\n " +
+                "\n Na koniec aplikacja drukuje na konsoli tablicę posortowanych liczb." +
+                "\n" +
+                "\n Każdy z podanych niżej algorytmów, jak i tablice liczb są podzielone na osobne klasy zapisane w osobnych plikach.");
 
             Console.WriteLine("\n===========================================\n");
 
